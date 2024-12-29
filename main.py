@@ -137,16 +137,6 @@ def lire_reservations_par_email(db_path, email):
 
     return reservations
 
-# Au lieu de rd, utilisez rm -rf
-rm -rf .git
-
-# Puis continuez avec les autres commandes :
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/ZAHIRI1398/Restauration-.git
-git push -f origin main
-
 @app.route('/supprimer_reservations', methods=['GET', 'POST'])
 def supprimer_reservations():
     if request.method == 'POST':

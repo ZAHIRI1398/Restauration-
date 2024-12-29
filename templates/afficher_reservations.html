@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Réservations</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        background-color: #fff;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .reservation-detail {
+        margin-bottom: 8px;
+      }
+
+      .plats-reserves {
+        font-weight: bold;
+        color: #2c3e50;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #2980b9;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+
+      .back-link:hover {
+        background-color: #3498db;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Réservations pour {{ email if email else 'tous les clients' }}</h1>
+    <ul>
+      {% if reservations_with_plats %} {% for reservation, plats in
+      reservations_with_plats %}
+      <li>
+        <div class="reservation-detail">
+          <strong>Nom :</strong> {{ reservation[1] }}
+        </div>
+        <div class="reservation-detail">
+          <strong>Nombre de personnes :</strong> {{ reservation[3] }}
+        </div>
+        <div class="reservation-detail">
+          <strong>Date :</strong> {{ reservation[5] }}
+        </div>
+        <div class="reservation-detail">
+          <strong>Heure :</strong> {{ reservation[4] }}
+        </div>
+        <div class="reservation-detail">
+          <strong>Contact :</strong> {{ reservation[6] }}
+        </div>
+        <div class="reservation-detail">
+          <strong>Email :</strong> {{ reservation[2] }}
+        </div>
+
+        <div class="plats-reserves">
+          <strong>Plats réservés :</strong>
+          {% if plats %}
+          <ul>
+            {% for plat in plats %}
+            <li>
+              <div><strong>Nom du plat :</strong> {{ plat[0] }}</div>
+              <div><strong>Description :</strong> {{ plat[1] }}</div>
+              <div><strong>Prix :</strong> {{ plat[2] }} €</div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %} Menu de jour. {% endif %}
+        </div>
+      </li>
+      {% endfor %} {% else %}
+      <li>Menu de jour.</li>
+      {% endif %}
+    </ul>
+    <a href="{{ url_for('accueil') }}" class="back-link">Retour à l'accueil</a>
+  </body>
+</html>
